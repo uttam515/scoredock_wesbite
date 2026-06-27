@@ -3,7 +3,7 @@
 This is the official landing page for **ScoreDock**, a native macOS menu bar/dock application for tracking live sports scores. 
 
 ## 🚀 Live Site
-*(Add your GitHub Pages URL here once deployed, e.g., `https://uttam515.github.io/scoredock_website`)*
+https://uttam515.github.io/scoredock_wesbite/
 
 ## 🛠️ Technology Stack
 This landing page is built to be extremely lightweight and blazing fast.
