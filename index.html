@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScoreDock - Live Sports on your macOS Dock</title>
+    <style>
+        :root {
+            --apple-blue: #007aff;
+            --apple-blue-hover: #005bb5;
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --border-radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            padding: 48px 1rem 1rem 1rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero {
+            max-width: 800px;
+            animation: fadeUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #1d1d1f 0%, #434353 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--apple-blue);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 980px;
+            /* Fully rounded */
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(0, 122, 255, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .download-btn:hover {
+            background-color: var(--apple-blue-hover);
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+        }
+
+        .installation-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .installation-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .installation-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background-color: #f0f0f2;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.85rem;
+            color: #333;
+            overflow-x: auto;
+            border: 1px solid #e1e1e3;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .apple-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 980px;
+            padding: 0 22px;
+            height: 100%;
+        }
+
+        .nav-link,
+        .nav-logo {
+            color: rgba(0, 0, 0, 0.8);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-logo {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover {
+            color: var(--apple-blue);
+        }
+
+        .nav-btn {
+            background: var(--apple-blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 980px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--apple-blue-hover);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            .installation-card {
+                padding: 1.5rem;
+            }
+
+            .nav-link {
+                display: none;
+            }
+
+            /* Hide links on mobile for simplicity */
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="apple-navbar">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">ScoreDock</a>
+            <a href="#" class="nav-link">Overview</a>
+            <a href="#" class="nav-link">Tech Specs</a>
+            <a href="#" class="nav-link">Support</a>
+            <a href="assets/ScoreDock.dmg" class="nav-btn">Download</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>ScoreDock.</h1>
+        <h2>Live sports scores, floating seamlessly on top of your macOS Dock. Never miss a goal again.</h2>
+
+        <a href="assets/ScoreDock.dmg" class="download-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download for macOS
+        </a>
+
+        <div class="installation-card">
+            <h3>Installation Guide</h3>
+            <p>ScoreDock is built by an independent developer. When you launch it for the first time, macOS may warn you
+                that the app "is damaged and cannot be opened" due to strict internet download security.</p>
+            <p>To safely install and run it:</p>
+            <ol
+                style="margin-left: 1.5rem; color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.5;">
+                <li>Drag <strong>ScoreDock</strong> to your <strong>Applications</strong> folder.</li>
+                <li>Open the <strong>Terminal</strong> app.</li>
+                <li>Copy and paste the command below, then press Return:</li>
+            </ol>
+            <div class="code-block" style="margin-bottom: 1rem;">
+                xattr -cr /Applications/ScoreDock.app
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0;">Finally, launch ScoreDock from your Applications folder.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Requires macOS 14.0 or later. Optimized for Apple Silicon & Intel.</p>
+    </div>
+
+</body>
+
+</html>
